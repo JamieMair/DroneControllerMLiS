@@ -9,3 +9,10 @@ We have included a file "custom_controller.py" for you to write your own algorit
 ## Bug Fixes
 
 1. 26/11/2020: A quick fix to the implementations of the drag dynamics on the drone.
+
+## Possible Extensions
+
+1. Increase the difficulty of the simulation by making sure the drone stays within the boundary of the screen.
+2. Decrease the value of the drag constants in drone.py to make the simulation more sensitive.
+3. Introduce barriers for the drone to avoid while also hitting the target.
+4. Extend the simulation to include two drones which avoid colliding with one another, but which still have to hit targets.
