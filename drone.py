@@ -13,7 +13,7 @@ class Drone():
         self.thrust_right = 0.5
         self.velocity_y = 0
         self.velocity_x = 0
-        self.velocity_drag = 3.0
+        self.velocity_drag = 1.0
         self.pitch = 0
         self.pitch_velocity = 0
         self.pitch_drag_constant = 0.3
@@ -57,8 +57,8 @@ class Drone():
         total_thrust = self.thrust_left+self.thrust_right
         total_torque = (self.thrust_left - self.thrust_right)*self.turning_constant
 
-        acc_y_h = (total_thrust * thrust_vec_y) / self.mass + self.g - velocity_size*thrust_vec_y
-        acc_x_h = (total_thrust * thrust_vec_x) / self.mass - velocity_size*thrust_vec_x
+        acc_y_h = (total_thrust * thrust_vec_y) / self.mass + self.g - self.velocity_drag * self.velocity_y
+        acc_x_h = (total_thrust * thrust_vec_x) / self.mass - self.velocity_drag * self.velocity_x
         theta_acc_h = (total_torque) / self.mass - self.pitch_drag_constant * np.abs(self.pitch_velocity)
 
         vel_x_h = self.velocity_x + acc_x_h * delta_time/2
@@ -73,8 +73,8 @@ class Drone():
         thrust_vec_y = np.cos(theta_h)
         velocity_size = np.sqrt(vel_x_h*vel_x_h+vel_y_h*vel_y_h)
 
-        acc_y_f = (total_thrust * thrust_vec_y) / self.mass + self.g - velocity_size*thrust_vec_y
-        acc_x_f = (total_thrust * thrust_vec_x) / self.mass - velocity_size*thrust_vec_x
+        acc_y_f = (total_thrust * thrust_vec_y) / self.mass + self.g - self.velocity_drag * self.velocity_y
+        acc_x_f = (total_thrust * thrust_vec_x) / self.mass - self.velocity_drag * self.velocity_x
         theta_acc_f = (total_torque) / self.mass - self.pitch_drag_constant * np.abs(self.pitch_velocity)
 
         self.velocity_x = vel_x_h + acc_x_f * delta_time/2
